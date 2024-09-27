@@ -21,7 +21,7 @@ export function Login(){
         <a href="/">
           <ArrowCircleLeft size={42} color="#7C7C8A"/>
         </a>
-        <a href="/">
+        <a href="/profile">
           <UserCircle size={42} color="#7C7C8A"/>
         </a>
       </LinksContainer>
