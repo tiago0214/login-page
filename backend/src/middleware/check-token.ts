@@ -4,7 +4,6 @@ import { env } from "../env/env";
 import { jwtDecode } from "jwt-decode";
 
 interface UserCredentials {
-  userId: string;
   email: string;
 }
 
@@ -12,7 +11,7 @@ export async function checkToken(request: FastifyRequest, reply: FastifyReply) {
   const token = request.headers.authorization;
 
   if (!token) {
-    return reply.status(401).send({ message: "Access token not informed" });
+    return reply.status(401).send({ message: "Unauthorized" });
   }
 
   const [, accessToken] = token.split(" ");
@@ -22,10 +21,9 @@ export async function checkToken(request: FastifyRequest, reply: FastifyReply) {
 
     const deco = jwtDecode<UserCredentials>(accessToken);
 
-    request.userId = deco.userId;
     request.email = deco.email;
   } catch (error) {
-    reply.status(409).send({
+    reply.status(401).send({
       message: "Access token with error",
     });
   }
