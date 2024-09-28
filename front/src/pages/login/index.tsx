@@ -1,6 +1,12 @@
 import { useForm } from "react-hook-form"
 import { ContactForm, CreateContainer, LinksContainer } from "./style"
 import { ArrowCircleLeft, UserCircle } from "@phosphor-icons/react"
+import { api } from "../../lib/axios"
+import { useContext } from "react"
+import { TokenProvider } from "../../context"
+import { message } from "antd"
+import axios from "axios"
+import { Profile } from "../profile"
 
 
 interface UserDataInput{
@@ -9,10 +15,27 @@ interface UserDataInput{
 }
 
 export function Login(){
-  const {register, handleSubmit} = useForm<UserDataInput>()
+  const { register, handleSubmit, reset } = useForm<UserDataInput>()
+  const { token, changeToken } = useContext(TokenProvider)
 
-  function handleUserData(data:UserDataInput){
-    console.log(data)
+  if(token){
+    return <Profile />
+  }
+
+  async function handleUserData(data:UserDataInput){
+    try{
+      const response = await api.post("/login",data)
+      const user = await response.data
+
+      changeToken(user)
+
+    }catch(err){
+      if(axios.isAxiosError(err)){
+        return message.error(err.response?.data.message)
+      }
+    }finally{
+      reset()
+    }
   }
 
   return (

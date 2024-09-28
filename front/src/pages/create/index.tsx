@@ -19,7 +19,7 @@ export function Create(){
  
     async function handleUserData(data:UserDataInput){
       try{
-        await api.post("/users",data).then((response) =>{
+        await api.post("/registration",data).then((response) =>{
           if(response.status === 201){
             return message.success("User Create With Success")
           }

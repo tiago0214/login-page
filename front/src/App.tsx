@@ -3,14 +3,17 @@ import { GlobalStyle } from './styles/global'
 import { defaultTheme } from './styles/themes/default'
 import { BrowserRouter } from 'react-router-dom';
 import { Router } from './Router';
+import { TokenContextProvider } from './context';
 
 export function App() {
   return(
   <>
     <ThemeProvider theme={defaultTheme}>
-      <BrowserRouter>
-        <Router/>
-      </BrowserRouter> 
+      <TokenContextProvider>
+        <BrowserRouter>
+          <Router/>
+        </BrowserRouter> 
+      </TokenContextProvider>
 
       <GlobalStyle/>
     </ThemeProvider>

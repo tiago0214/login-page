@@ -1,17 +1,26 @@
-import { useEffect } from "react";
+import { useContext, useState } from "react";
 import { Login } from "../login";
 import { ButtonContainer, ButtonsAnchor, ContactInfo } from "./style";
 import { House, UserCircle } from "@phosphor-icons/react";
+import { TokenProvider } from "../../context";
+
+interface User{
+  name:string,
+  email:string
+}
 
 export function Profile() {
-  const authorization = true;
+  const { token } = useContext(TokenProvider)
+  const[ user, setUser]= useState<User>()
 
-  useEffect(()=>{
-    
-  },[authorization])
-
-  if(!authorization){
+  if(!token){
     return <Login />
+  }
+
+  function handleLogout(){
+    localStorage.clear()
+
+    window.location.href= "/"
   }
 
   return (
@@ -24,7 +33,7 @@ export function Profile() {
       <p id="name">Tiago Souza</p>
 
       <ButtonContainer> 
-        <ButtonsAnchor href="">Edit User</ButtonsAnchor>
+        <ButtonsAnchor onClick={handleLogout}>Logout</ButtonsAnchor>
         <ButtonsAnchor href="/password">Change Password</ButtonsAnchor>
       </ButtonContainer>
 
