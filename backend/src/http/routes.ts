@@ -5,7 +5,7 @@ import { checkToken } from "../middleware/check-token";
 import { profile } from "./controller/profile";
 
 export async function appRoutes(app: FastifyInstance) {
-  app.post("/registration", register);
+  app.post("/register", register);
 
   app.post("/login", login);
 

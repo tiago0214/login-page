@@ -6,7 +6,9 @@ import { UserAlreadyExistsError } from "../../services/errors/user-already-exist
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
   const registerBodySchema = z.object({
-    name: z.string(),
+    name: z
+      .string({ required_error: "Name must be informed" })
+      .min(3, "Name must contain at least 3 character(s)"),
     email: z.string().email(),
     password: z
       .string()

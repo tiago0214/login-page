@@ -17,4 +17,6 @@ app.setErrorHandler((err, _, reply) => {
       return reply.status(400).send({ message: error.message });
     });
   }
+
+  console.log(err);
 });
