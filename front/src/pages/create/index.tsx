@@ -6,7 +6,6 @@ import { api } from "../../lib/axios"
 import { message } from "antd"
 import axios from "axios"
 
-
 interface UserDataInput{
   name: string,
   email: string,
@@ -21,7 +20,12 @@ export function Create(){
       try{
         await api.post("/registration",data).then((response) =>{
           if(response.status === 201){
-            return message.success("User Create With Success")
+            message.success("User Create With Success")
+
+            setInterval(()=>{
+              window.location.href = "/login"
+            },1500)
+            
           }
         })
       }catch(err){

@@ -3,6 +3,7 @@ import { Login } from "../login";
 import { ButtonContainer, ButtonsAnchor, ContactInfo } from "./style";
 import { House, UserCircle } from "@phosphor-icons/react";
 import { TokenProvider } from "../../context";
+import { message } from "antd";
 
 interface User{
   name:string,
@@ -14,6 +15,7 @@ export function Profile() {
   const[ user, setUser]= useState<User>()
 
   if(!token){
+    message.error("Need to login first")
     return <Login />
   }
 
