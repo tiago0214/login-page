@@ -20,7 +20,7 @@ export function Create(){
       try{
         await api.post("/registration",data).then((response) =>{
           if(response.status === 201){
-            message.success("User Create With Success")
+            message.success("User Create With Success... redirecting")
 
             setInterval(()=>{
               window.location.href = "/login"
