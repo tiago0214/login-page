@@ -23,5 +23,7 @@ export async function login(request: FastifyRequest, reply: FastifyReply) {
     if (err instanceof UserInvalidCredentials) {
       return reply.status(401).send({ message: err.message });
     }
+
+    throw err;
   }
 }

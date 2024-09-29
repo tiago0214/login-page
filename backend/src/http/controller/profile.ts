@@ -15,6 +15,6 @@ export async function profile(request: FastifyRequest, reply: FastifyReply) {
   } catch (err) {
     console.log(err);
 
-    reply.status(500).send({ message: "Internal error" });
+    throw err;
   }
 }
