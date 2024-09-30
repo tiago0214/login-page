@@ -1,42 +1,55 @@
-import { createContext, ReactNode, useEffect, useState} from "react";
+import { createContext, ReactNode, useReducer} from "react";
 
 interface ActiveContextProvider{
   children: ReactNode
 }
 
 interface TokenContextType{
-  token: string | undefined ,
-  changeToken(token:string):void
+  accessToken: string | null ,
+  changeToken: (token:string | null) => void
 }
+
+interface LocalTokenType{
+  accessToken:string | null
+}
+
+
 
 export const TokenProvider = createContext({} as TokenContextType)
 
 export function TokenContextProvider({children}:ActiveContextProvider){
-  const [token, setToken] = useState<string | undefined>(undefined)
+  const [ token, dispach ] = useReducer(reducer,{} as LocalTokenType,(initialState)=>{
+    const localToken = localStorage.getItem("token")
+    let tokenParse;
 
-  function changeToken(token:string | undefined){
-    setToken(token)
+    if(localToken){
+      tokenParse = JSON.parse(localToken)
+
+      return {accessToken:tokenParse.accessToken}
+    }
+
+    return {accessToken:initialState.accessToken}
+  })
+
+  function reducer (_:LocalTokenType,action:LocalTokenType){
+    // if(state){
+    //   return {accessToken: state.accessToken}
+    // }
+
+    return {accessToken: action.accessToken}
+  }
+
+  async function changeToken(token:string | null){
+    dispach({accessToken:token})
 
     localStorage.setItem("token", JSON.stringify(token))
   }
 
-  useEffect(()=>{
-    const localToken = localStorage.getItem("token")
-    let convertToken;
-
-    if(localToken){
-      convertToken = JSON.parse(localToken)
-
-      setToken(convertToken.accessToken)
-
-    }
-  })
-
   return(
     <TokenProvider.Provider value={{
-      token,
-      changeToken
-    }}>
+        accessToken:token.accessToken,
+        changeToken
+      }}>
       {children}
     </TokenProvider.Provider>
   )

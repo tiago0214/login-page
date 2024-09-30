@@ -18,7 +18,7 @@ export function Create(){
  
     async function handleUserData(data:UserDataInput){
       try{
-        await api.post("/registration",data).then((response) =>{
+        await api.post("/register",data).then((response) =>{
           if(response.status === 201){
             message.success("User Create With Success... redirecting")
 

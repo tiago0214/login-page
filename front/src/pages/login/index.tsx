@@ -6,7 +6,6 @@ import { useContext } from "react"
 import { TokenProvider } from "../../context"
 import { message } from "antd"
 import axios from "axios"
-import { Profile } from "../profile"
 
 
 interface UserDataInput{
@@ -16,10 +15,11 @@ interface UserDataInput{
 
 export function Login(){
   const { register, handleSubmit, reset } = useForm<UserDataInput>()
-  const { token, changeToken } = useContext(TokenProvider)
+  const { accessToken, changeToken } = useContext(TokenProvider)
 
-  if(token){
-    return <Profile />
+
+  if(accessToken){
+    window.location.href = "/profile"
   }
 
   async function handleUserData(data:UserDataInput){
@@ -29,6 +29,7 @@ export function Login(){
 
       changeToken(user)
 
+      window.location.href= "/profile" 
     }catch(err){
       if(axios.isAxiosError(err)){
         return message.error(err.response?.data.message)
