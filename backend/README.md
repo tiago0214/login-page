@@ -7,4 +7,8 @@
 
 #### Scripts on my projects
 
-``
+`npm run dev -> run the project with typescript files` \
+`npm run build -> compile the project to javascript` \
+`npm run start -> run the project through the compiled version` \
+`npm run test -> run the test files for once` \
+`npm run test:watch -> run the test files in watch mode` 
