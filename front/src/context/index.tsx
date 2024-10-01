@@ -30,10 +30,6 @@ export function TokenContextProvider({children}:ActiveContextProvider){
   })
 
   function reducer (_:LocalTokenType,action:LocalTokenType){
-    // if(state){
-    //   return {accessToken: state.accessToken}
-    // }
-
     return {accessToken: action.accessToken}
   }
 
@@ -43,13 +39,13 @@ export function TokenContextProvider({children}:ActiveContextProvider){
     localStorage.setItem("token", JSON.stringify(token))
   }
 
+  
   return(
     <TokenProvider.Provider value={{
         accessToken:token.accessToken,
-        changeToken
+        changeToken,
       }}>
       {children}
     </TokenProvider.Provider>
   )
-
 }

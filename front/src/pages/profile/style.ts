@@ -20,6 +20,10 @@ export const ContactInfo = styled.div`
     border: solid 1px ${props => props.theme["gray-300"]};
     background-color: transparent;
   }
+
+  a{
+    margin-top: 20px;
+  }
 `
 
 export const ButtonsAnchor = styled.a`

@@ -2,10 +2,11 @@ import { useForm } from "react-hook-form"
 import { ContactForm, CreateContainer, LinksContainer } from "./style"
 import { ArrowCircleLeft, UserCircle } from "@phosphor-icons/react"
 import { api } from "../../lib/axios"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { TokenProvider } from "../../context"
 import { message } from "antd"
 import axios from "axios"
+import { Profile } from "../profile"
 
 
 interface UserDataInput{
@@ -17,10 +18,19 @@ export function Login(){
   const { register, handleSubmit } = useForm<UserDataInput>()
   const { accessToken, changeToken } = useContext(TokenProvider)
 
-  if(accessToken){
-    window.location.href = "/profile"
+  async function checkToken(){
+    if(accessToken){
+      try{
+        await api.get("/").then(()=>{
+          window.location.href = "/profile"
+          return <Profile />
+        })
+      }catch{
+        message.error("Server if offline")
+      }
+    }
   }
-
+  
   async function handleUserData(data:UserDataInput){
     try{
       const response = await api.post("/login",data)
@@ -35,6 +45,10 @@ export function Login(){
       }
     }
   }
+
+  useEffect(()=>{
+    checkToken()
+  })
 
   return (
     <CreateContainer>

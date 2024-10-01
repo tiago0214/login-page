@@ -5,7 +5,10 @@ import { BrowserRouter } from 'react-router-dom';
 import { Router } from './Router';
 import { TokenContextProvider } from './context';
 
+
 export function App() {
+  
+
   return(
   <>
     <ThemeProvider theme={defaultTheme}>
