@@ -5,7 +5,7 @@ export function Home(){
     <HomeContainer>
       <HomeHeader>
         <span>Welcome</span>
-        <p>It's a page to just create and manage an user account</p>
+        <p>It's a page for creating and managing users from the backend service.</p>
       </HomeHeader>
       <ButtonContainer>
         <Buttons href="/create">Create</Buttons>
