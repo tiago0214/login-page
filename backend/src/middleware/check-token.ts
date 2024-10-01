@@ -11,8 +11,6 @@ interface UserCredentials {
 export async function checkToken(request: FastifyRequest) {
   const token = request.headers.authorization;
 
-  console.log(token);
-
   if (!token) {
     throw new TokenNotProvidedError();
   }

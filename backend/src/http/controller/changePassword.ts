@@ -10,18 +10,14 @@ export async function changePassword(
 ) {
   const passwordBodySchema = z.object({
     oldPassword: z.string(),
-    newPassword: z.string(),
+    newPassword: z
+      .string()
+      .min(6, "Password must contain at least 6 character(s)"),
   });
 
   const { oldPassword, newPassword } = passwordBodySchema.parse(request.body);
 
   const { email } = request;
-
-  console.log({
-    email,
-    oldPassword,
-    newPassword,
-  });
 
   try {
     const userRepository = new PrismaUserRepository();
