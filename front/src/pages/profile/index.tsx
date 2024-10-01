@@ -23,10 +23,6 @@ export function Profile() {
   }
   
   async function apiResponse() {
-    if(typeof accessToken === "undefined"){
-      return <Login />
-    }
-
     try {
       const user = await api.get("/profile",{
         headers:{ Authorization: `Bearer ${accessToken}`}
@@ -38,6 +34,8 @@ export function Profile() {
     } catch (err) {
       if(axios.isAxiosError(err)){
         message.error(err.response?.data.message)
+
+        setTimeout(()=> window.location.href="/login",1500)
       }
     }
     
@@ -47,10 +45,10 @@ export function Profile() {
     apiResponse()
   })
 
-  if(!accessToken){
+  if(typeof accessToken === "undefined" || !accessToken){
     return <Login />
   }
-  
+
   return (
     <ContactInfo >
       <span><UserCircle size={42} color="#7C7C8A"/></span>

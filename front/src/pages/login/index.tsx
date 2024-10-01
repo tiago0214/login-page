@@ -14,7 +14,7 @@ interface UserDataInput{
 }
 
 export function Login(){
-  const { register, handleSubmit, reset } = useForm<UserDataInput>()
+  const { register, handleSubmit } = useForm<UserDataInput>()
   const { accessToken, changeToken } = useContext(TokenProvider)
 
   if(accessToken){
@@ -33,8 +33,6 @@ export function Login(){
       if(axios.isAxiosError(err)){
         return message.error(err.response?.data.message)
       }
-    }finally{
-      reset()
     }
   }
 

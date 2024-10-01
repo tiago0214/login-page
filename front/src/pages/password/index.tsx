@@ -1,10 +1,12 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Login } from "../login";
 import { ButtonContainer, ContactInfo } from "./style";
 import { UserCircle } from "@phosphor-icons/react";
 import { useForm } from "react-hook-form";
 import { api } from "../../lib/axios";
 import { TokenProvider } from "../../context";
+import axios from "axios";
+import { message } from "antd";
 
 interface ChangePasswordParams{
   oldPassword: string,
@@ -12,22 +14,28 @@ interface ChangePasswordParams{
 }
 
 export function Password() {
-  const {register, handleSubmit} = useForm<ChangePasswordParams>()
+  const {register, handleSubmit, reset} = useForm<ChangePasswordParams>()
   const {accessToken} = useContext(TokenProvider)
 
   async function fetchApi({oldPassword,newPassword}:ChangePasswordParams){
+    try {
       await api.post("/password",{
-        data:{
-          oldPassword,
-          newPassword
-        }
-      },{
-        headers:{
-          Authorization: `Bearer ${accessToken}`
-        }
-      })
-      //frontend its making a wrong request when i change to POST verb
-      //When i change the GET to POST my params orders is differents
+        oldPassword,
+        newPassword
+    },{
+      headers:{
+        Authorization: `Bearer ${accessToken}`
+      }
+    }).then((response) =>{
+      message.success(response.data.message)
+    })
+    } catch (err) {
+      if(axios.isAxiosError(err)){
+        return message.error(err.response?.data.message)
+      }
+    }finally{
+      reset()
+    }
       
   }
 
