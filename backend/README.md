@@ -1,9 +1,9 @@
 #### To run the project: 
->- You have to **run** `npm install` 
->- You have to **create** .env => use the `.env.example` to see a template 
->- You have to **run** `docker compose up -d` 
->- You have to **run** `npx prisma migrate dev` => to create the DB 
->- You can **run** the backend with `npm run dev` 
+>- **run** `npm install` to install all dependencies 
+>- **create** .env file : use the `.env.example` to see a template 
+>- **run** `docker compose up -d` to build the image from DB on docker 
+>- **run** `npx prisma migrate dev` : to create the tables on the DB 
+>- **run** `npm run dev` to start the backend service 
 
 #### Scripts on my projects
 

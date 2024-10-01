@@ -5,7 +5,7 @@ export function Home(){
     <HomeContainer>
       <HomeHeader>
         <span>Welcome</span>
-        <p>It's a simple exercise to create an account</p>
+        <p>It's a page to just create and manage an user account</p>
       </HomeHeader>
       <ButtonContainer>
         <Buttons href="/create">Create</Buttons>
