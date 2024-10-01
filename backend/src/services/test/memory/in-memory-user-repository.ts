@@ -1,7 +1,14 @@
 import { User, Prisma } from "@prisma/client";
-import { UserRepository } from "../user-repository";
+import {
+  ChangePasswordParams,
+  UserRepository,
+} from "../../../repository/user-repository";
 
 export class InMemoryUserRepository implements UserRepository {
+  changePassword(data: ChangePasswordParams): Promise<string | null> {
+    throw new Error("Method not implemented.");
+  }
+
   private users: User[] = [];
 
   async findByEmail(email: string) {

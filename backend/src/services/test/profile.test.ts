@@ -1,5 +1,7 @@
-import { it, describe, expect } from "vitest";
+import { it, describe } from "vitest";
 
 describe("profile services", () => {
-  it("should return user informations", async () => {});
+  it.skip("should return user informations", async () => {
+    // to:do;
+  });
 });

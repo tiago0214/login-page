@@ -1,5 +1,5 @@
 import { User, Prisma } from "@prisma/client";
-import { UserRepository } from "../user-repository";
+import { UserRepository, ChangePasswordParams } from "../user-repository";
 import { prisma } from "../../lib/prisma";
 
 export class PrismaUserRepository implements UserRepository {
@@ -15,6 +15,19 @@ export class PrismaUserRepository implements UserRepository {
     }
 
     return user;
+  }
+
+  async changePassword({ email, newPassword }: ChangePasswordParams) {
+    await prisma.user.update({
+      where: {
+        email,
+      },
+      data: {
+        password_hash: newPassword,
+      },
+    });
+
+    return "Password has been changed.";
   }
 
   async createUser(data: Prisma.UserCreateInput): Promise<User> {

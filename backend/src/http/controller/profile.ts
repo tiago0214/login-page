@@ -1,6 +1,8 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { PrismaUserRepository } from "../../repository/prisma/prisma-user-repository";
 import { ProfileService } from "../../services/profile-service";
+import { TokenNotProvidedError } from "../../middleware/errors/token-not-provided-error";
+import { UserNotFoundError } from "../../services/errors/user-not-found-error";
 
 export async function profile(request: FastifyRequest, reply: FastifyReply) {
   const { email } = request;
@@ -13,7 +15,9 @@ export async function profile(request: FastifyRequest, reply: FastifyReply) {
 
     return reply.status(200).send(user);
   } catch (err) {
-    console.log(err);
+    if (err instanceof UserNotFoundError) {
+      reply.status(404).send({ message: err.message });
+    }
 
     throw err;
   }

@@ -1,30 +1,33 @@
-import { FastifyReply, FastifyRequest } from "fastify";
+import { FastifyRequest } from "fastify";
 import { verify } from "jsonwebtoken";
 import { env } from "../env/env";
 import { jwtDecode } from "jwt-decode";
+import { TokenNotProvidedError } from "./errors/token-not-provided-error";
 
 interface UserCredentials {
   email: string;
 }
 
-export async function checkToken(request: FastifyRequest, reply: FastifyReply) {
+export async function checkToken(request: FastifyRequest) {
   const token = request.headers.authorization;
 
+  console.log(token);
+
   if (!token) {
-    return reply.status(401).send({ message: "Unauthorized" });
+    throw new TokenNotProvidedError();
   }
 
   const [, accessToken] = token.split(" ");
 
-  try {
-    verify(accessToken, env.SECRET);
-
-    const deco = jwtDecode<UserCredentials>(accessToken);
-
-    request.email = deco.email;
-  } catch (error) {
-    reply.status(401).send({
-      message: "Access token with error",
-    });
+  if (accessToken === "undefined") {
+    throw new TokenNotProvidedError();
   }
+
+  verify(accessToken, env.SECRET);
+
+  const deco = jwtDecode<UserCredentials>(accessToken);
+
+  request.email = deco.email;
 }
+
+// to do: fix not email provide, zod error on login
