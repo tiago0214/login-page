@@ -4,7 +4,8 @@ import { House, UserCircle } from "@phosphor-icons/react";
 import { TokenProvider } from "../../context";
 import { message } from "antd";
 import { api } from "../../lib/axios";
-// import { api } from "../../lib/axios";
+import { Login } from "../login";
+import axios from "axios";
 
 interface User{
   name: string,
@@ -20,9 +21,13 @@ export function Profile() {
 
     window.location.href= "/"
   }
+  
+  async function apiResponse() {
+    if(typeof accessToken === "undefined"){
+      return <Login />
+    }
 
-  useEffect(() => {
-    async function apiResponse() {
+    try {
       const user = await api.get("/profile",{
         headers:{ Authorization: `Bearer ${accessToken}`}
       })
@@ -30,15 +35,22 @@ export function Profile() {
       if(user){
         setUser(user.data)
       }
-  
-      if(!accessToken){
-        message.error("Invalid credentials")
+    } catch (err) {
+      if(axios.isAxiosError(err)){
+        message.error(err.response?.data.message)
       }
     }
+    
+  }
 
+  useEffect(() => {
     apiResponse()
   })
 
+  if(!accessToken){
+    return <Login />
+  }
+  
   return (
     <ContactInfo >
       <span><UserCircle size={42} color="#7C7C8A"/></span>

@@ -13,8 +13,6 @@ interface LocalTokenType{
   accessToken:string | null
 }
 
-
-
 export const TokenProvider = createContext({} as TokenContextType)
 
 export function TokenContextProvider({children}:ActiveContextProvider){

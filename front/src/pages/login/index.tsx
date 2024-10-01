@@ -17,7 +17,6 @@ export function Login(){
   const { register, handleSubmit, reset } = useForm<UserDataInput>()
   const { accessToken, changeToken } = useContext(TokenProvider)
 
-
   if(accessToken){
     window.location.href = "/profile"
   }
@@ -52,8 +51,8 @@ export function Login(){
       
       <ContactForm onSubmit={handleSubmit(handleUserData)}>
         <span>User Login</span>
-        <input type="text" placeholder="email" required {...register("email")}/>
-        <input type="password" placeholder="password" required {...register("password")}/>
+        <input type="text" placeholder="email" {...register("email")}/>
+        <input type="password" placeholder="password" {...register("password")}/>
 
         <button type="submit">Login</button>
       </ContactForm>

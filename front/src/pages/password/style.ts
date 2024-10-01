@@ -5,7 +5,7 @@ export const ButtonContainer = styled.div`
   gap: 10px;
 `
 
-export const ContactInfo = styled.div`
+export const ContactInfo = styled.form`
   display: flex;
   flex-direction: column;
   margin: auto;

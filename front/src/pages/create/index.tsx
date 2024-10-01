@@ -14,13 +14,12 @@ interface UserDataInput{
 
 export function Create(){
   const {register, handleSubmit, reset} = useForm<UserDataInput>()
-
- 
     async function handleUserData(data:UserDataInput){
       try{
         await api.post("/register",data).then((response) =>{
           if(response.status === 201){
             message.success("User Create With Success... redirecting")
+            localStorage.clear()
 
             setInterval(()=>{
               window.location.href = "/login"
@@ -51,9 +50,9 @@ export function Create(){
       
       <ContactForm onSubmit={handleSubmit(handleUserData)}>
         <span>User Registration</span>
-        <input type="text" placeholder="name" required {...register("name")}/>
-        <input type="text" placeholder="email" required {...register("email")}/>
-        <input type="password" placeholder="password" required {...register("password")}/>
+        <input type="text" placeholder="name" {...register("name")}/>
+        <input type="text" placeholder="email" {...register("email")}/>
+        <input type="password" placeholder="password" {...register("password")}/>
 
         <button type="submit">Create</button>
       </ContactForm>
