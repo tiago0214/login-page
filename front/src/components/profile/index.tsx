@@ -70,6 +70,6 @@ export function Profile() {
 
       <a href="/"><House size={22} color="#7C7C8A"/></a>
 
-  </ContactInfo>
+    </ContactInfo>
   )
 }
