@@ -13,7 +13,7 @@ interface UserDataInput{
 }
 
 export function Create(){
-  const {register, handleSubmit, reset} = useForm<UserDataInput>()
+  const { register, handleSubmit, reset} = useForm<UserDataInput>()
     async function handleUserData(data:UserDataInput){
       try{
         await api.post("/register",data).then((response) =>{

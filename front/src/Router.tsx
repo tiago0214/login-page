@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import { DefaultLayout } from "./pages/layout";
-import { Home } from "./pages/home";
-import { Create } from "./pages/create";
-import { Login } from "./pages/login";
-import { Profile } from "./pages/profile";
-import { Password } from "./pages/password";
+import { DefaultLayout } from "./components/layout";
+import { Home } from "./components/home";
+import { Create } from "./components/create";
+import { Login } from "./components/login";
+import { Profile } from "./components/profile";
+import { Password } from "./components/password";
 
 export function Router(){
   return (

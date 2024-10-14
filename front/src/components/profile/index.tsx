@@ -28,8 +28,6 @@ export function Profile() {
         headers:{ Authorization: `Bearer ${accessToken}`}
       })
 
-      // console.log(user)
-  
       if(user){
         setUser(user.data)
       }
