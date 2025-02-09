@@ -1,4 +1,6 @@
-This is a user registration project.
+![Project Screenshot](login.png)
+
+This is a create user project.
 
 You can find details about the technologies used in both the backend and frontend directories.
 
