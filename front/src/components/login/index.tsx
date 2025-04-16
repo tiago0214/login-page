@@ -26,7 +26,7 @@ export function Login(){
           return <Profile />
         })
       }catch{
-        message.error("Server if offline")
+        message.error("Server is offline")
       }
     }
   }

@@ -30,7 +30,7 @@ export function Create(){
       }catch(err){
         if(axios.isAxiosError(err)){
           if(!err.response?.data.message){
-            return message.error("Server if offline")
+            return message.error("Server is offline")
           }
 
           return message.error(err.response?.data.message)
